@@ -1,0 +1,45 @@
+body{
+    font-family: "Inter var", "Inter", sans-serif;
+    background-color:hsl(218, 34%, 96%);
+}
+header{
+    background-color:hsl(218, 34%, 96%);
+}
+main{
+    background-color:hsl(213, 60%, 97%);
+}
+#index_nav {
+    font-size: 0.9rem;
+    font-weight: bolder;
+    letter-spacing: 0.120em;
+    font-family: "Inter var", "Inter", sans-serif;
+}
+.no-border{
+    border: none !important; 
+    outline: none;
+    box-shadow: none; 
+    width: auto;
+}
+#header-image-container{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.header-sub-container{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.sub-container{
+    display: flex;
+}
+.sub-container div{
+    justify-content: center;
+    align-items: center;
+}
+.nav-link{
+     font-family: "Inter var", "Inter", sans-serif; 
+}

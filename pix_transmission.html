@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pix Transmission</title>
+    <link rel="icon" href="image/favicon-32x32.00205914303a.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/brands.min.css"
+        integrity="sha512-EJp8vMVhYl7tBFE2rgNGb//drnr1+6XKMvTyamMS34YwOEFohhWkGq13tPWnK0FbjSS6D8YoA3n3bZmb3KiUYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+        <style>
+            body{
+                font-family: "Inter var", "Inter", sans-serif;
+                background-color: #f1f4f8;
+            }
+            p{
+                font-size: 1.1em;
+                color: rgb(102, 102, 102);
+            }
+            a{
+                text-decoration: none;
+            }
+            .me-1{
+              font-size: 1rem;
+              color: hsl(207, 12%, 43%);
+            }
+        </style>
+
+<!-- trading chart code -->
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.stock.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {  
+  var stockChart = new CanvasJS.StockChart("chartContainer",{
+    title:{
+      text:""
+    },
+    animationEnabled: true,
+    exportEnabled: true,
+    charts: [{
+      axisX: {
+        crosshair: {
+          enabled: true,
+          snapToDataPoint: true
+        }
+      },
+      axisY: {
+        crosshair: {
+          enabled: true,
+          //snapToDataPoint: true
+        }
+      },
+      data: data
+    }],    
+    rangeSelector: {
+      inputFields: {
+        startValue: 4000,
+        endValue: 6000,
+        valueFormatString: "###0"
+      },
+      
+      buttons: [{
+        label: "1M",
+        range: 1000,
+        rangeType: "number"
+      },{
+        label: "6M",
+        range: 2000,
+        rangeType: "number"
+      },{
+        label: "3Yr",
+        range: 3000,
+        rangeType: "number"
+      },{
+        label: "5Yr",
+        range: 4000,
+        rangeType: "number"
+      },{
+        label: "10Yr",
+        range: 5000,
+        rangeType: "number"
+      },{
+        label: "max",        
+        rangeType: "all"
+      }]
+    }
+  });
+
+  stockChart.render();    
+}
+
+var limit = 10000;    //increase number of dataPoints by increasing this
+var y = 1000;
+var data = []; var dataSeries = { type: "spline" };
+var dataPoints = [];
+for (var i = 0; i < limit; i += 1) {
+  y += Math.round((Math.random() * 10 - 5));
+  dataPoints.push({ x: i, y: y });
+}
+dataSeries.dataPoints = dataPoints;
+data.push(dataSeries);
+</script>
+</head>
+
+</head>
+
+<body>
+    <header class="bg-white sticky-md-top">
+        <section>
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <div class="container-fluid">
+                    <figure>
+                        <img src="image/logo-header.svg" alt="" class="img-fluid mt-3 ms-4"
+                            style="width: 150px; height: auto;">
+                    </figure>
+                    <button class="d-lg-none navbar-burger btn p-0 rounded-pill" style="border: none;" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#nav01" aria-controls="nav01" aria-expanded="true">
+                        <svg class="text-primary" width="51" height="51" viewbox="0 0 56 56" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="56" height="56" rx="28" fill="currentColor"></rect>
+                            <path d="M37 32H19M37 24H19" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                    <div class="navbar-collapse ms-6 collapse " id="nav01">
+                        <ul class="navbar-nav me-auto ">
+                            <li class="nav-item mx-3"><a class="nav-link fw-medium text-secondary"
+                                    href="index.html">HOME</a></li>
+                            <li class="nav-item mx-3"><a class="nav-link fw-medium text-secondary" href="screen.html">SCREEN</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-secondary mx-3" id="index_nav" href="#"
+                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    TOOLS
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="index_nav" style="width:auto;">
+                                    <!-- Dropdown Item 1 -->
+                                    <li class="dropdown-item-wrapper">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="image me-3">
+                                                <img src="image/drop-img1.svg" alt="Create a Stock Screen">
+                                            </div>
+                                            <div class="anger-tag">
+                                                <div>Create a Stock Screen</div>
+                                                <div class="text-secondary"> Run
+                                                    queries on 10 years <br> of financial data</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- Dropdown Item 2 -->
+                                    <li class="d-flex "><a class="dropdown-item" href="">
+                                        <figure class="text-dark bg-primary"><img src="image/drop-img-2.svg"
+                                                class="img-fluid " alt="">premium features
+                                            <hr>
+                                        </figure>
+                                    </a></li>
+                                     <!-- prieum conternt -->
+                                    <li class="dropdown-item-wrapper">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="image me-3">
+                                                <img src="image/drop-img-2.svg" alt="Short Pan">
+                                            </div>
+                                            <div class="anger-tag">
+                                                <div>Comodities Prices</div>
+                                                <div class="text-secondary">See prices
+                                                    and trends of over <br> 10,000 commodities</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- Dropdown Item 3 -->
+                                    <li class="dropdown-item-wrapper">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="image me-3">
+                                                <img src="image/drop-3.svg" alt="Example Item 3">
+                                            </div>
+                                            <div class="anger-tag">
+                                                <div>Search
+                                                    shareholders</div>
+                                                <div class="text-secondary">See
+                                                    companies where a person <br> holds over 1% of the shares</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- Dropdown Item 4 -->
+                                    <li class="dropdown-item-wrapper">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="image me-3">
+                                                <img src="image/drop-4.svg" alt="Example Item 4">
+                                            </div>
+                                            <div class="anger-tag">
+                                                <div>Latest
+                                                    Announcements</div>
+                                                <div class="text-secondary">Browse,
+                                                    filter and set <br> alerts for announcements.</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- Upgrade to Premium -->
+                                    <li class="p-2">
+                                        <a class="dropdown-item text-white bg-primary rounded text-center" href="#">
+                                            Upgrade to Premium
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        </li>
+                        </ul>
+                        <div class="d-none d-md-block">
+                            <div class=" p-1 d-flex gap-2 bg-white"
+                                style="border: 2px solid gray; border-radius: 10px;">
+
+                                <i class="fa-solid fa-magnifying-glass p-1 " style="color: gray;"></i>
+                                <input type="text" name="" id="" class="w-100 no-border " style="border: none;"
+                                    placeholder="search for a company">
+
+
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 ">
+                            <a class="btn  py-1 px-3 bg-light text-secondary mx-1 mb-2 mb-md-0 border border-secondary fw-medium"
+                                href="login.html"><span><i class="fa-regular fa-user text-primary"></i></span> Login</a>
+                        </div>
+                        <div class="flex-shrink-0"><a class="btn btn-primary py-1 px-4 bg-white text-primary fw-medium"
+                                href="register.html">Get Free Account</a></div>
+                    </div>
+                </div>
+            </nav>
+        </section>
+        <header class="sub_header">
+          <section class="pt-8 px-6 py-1 bg-secondary-emphasis  bg-light mt-0">
+              <ul class="nav ms-4">
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#Manganese">Pix transmission</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#Manganese_graph">Chart</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#analysis">analysis</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#peer">Peers</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#quarterly">Quarters</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#Profit&loss">Profit & loss</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#balence_sheet">Balence Sheet</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#cashflow">Chashflow </a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#ratio">ratio</a></li>
+                <li class="nav-item"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="#">Investers</a></li>
+                <li class="nav-item ms-md-auto me-4"><a class="nav-link pb-2 ps-2 text-secondary fw-normal link-primary " href="register.html"><i class="fa-solid fa-book-open p-1"></i>notepad</a></li>
+              </ul>
+            </section>
+         </header> 
+    </header>
+
+    <!-- sub_header -->
+
+   
+
+
+   <!-- <header class="sub_header sticky-md-top">
+    <section class="pt-8 px-6 py-1 bg-secondary-emphasis bg-light mt-0">
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#Manganese">Sandur Manganese</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#Manganese_graph">Chart</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#analysis">Analysis</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#peer">Peers</a></td>
+                   
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#quarterly">Quarters</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#Profit&loss">Profit & Loss</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#balence_sheet">Balance Sheet</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#cashflow">Cashflow</a></td>
+                    
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#ratio">Ratio</a></td>
+                        <td><a class="nav-link text-secondary fw-normal link-primary" href="#">Investors</a></td>
+                        <td colspan="2" class="text-end">
+                            <a class="nav-link text-secondary fw-normal link-primary" href="register.html">
+                                <i class="fa-solid fa-book-open p-1"></i>Notepad
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</header> -->
+
+   <!-- main-content -->
+   <main>
+    <section id="Manganese">
+        <div class="container-fluid  d-flex justify-content-center" >
+            <div class="mt-4 mb-2 rounded" style="width: 95%; height: auto; ">
+                <div class="row rounded" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                    <div class="col-12 col-md-8 p-0 bg-white rounded  order-md-1 order-2" style=" height: auto;">
+                        <div class="d-md-flex mt-md-2 p-3 pt-2">
+                            <div>
+                                <h1 class="text-dark" style="font-size: 2.6rem; line-height: 1.225; letter-spacing: -0.022em;">Pix Transmission & Ltd</h1>
+                            </div>
+                            <div class="ms-md-auto d-flex justify-content-md-center align-items-md-center flex-column">
+                                <div class="px-3 fs-5 fw-semibold">₹538 <a href="" class="text-danger text-decoration-none fs-6"><i class="fa-regular fa-circle-down"></i>-1.17%</a></div>
+                                <span class="p-0 text-secondary" style="font-size: 0.8rem;">12 Aug 11.30 a.m.</span>
+                            </div>
+                        </div>
+                        <div class="linkcontent">
+                            <a href="" class="text-primary text-decoration-none  fs-6 ps-4"><i class="fa-solid text-primary fa-link p-1"></i>Sandurgroup.com</a>
+                            <a href="" class="text-secondary text-decoration-none  fs-6 ps-4"><i class="fa-solid text-primary fa-pen-to-square p-1"></i>BSE:505918</a>
+                            <a href="" class="text-secondary text-decoration-none  fs-6 ps-4"><i class="fa-solid text-primary fa-pen-to-square p-1"></i>NSE:505918</a>
+                        </div>
+                        <!-- table-section -->
+                        <div class="table_content m-2 border border-secondary rounded p-1">
+                            <section class="py-8">
+                                <div class="container">
+                                  <div class="table-responsive mt-2 rounded">
+                                    <table class="table bg-white rounded  small p-2">
+                                      <thead>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>market cap</p>
+                                                <p class="fw-semibold text-dark">₹8,723 Cr.</p>
+                                            </div>
+                                          </td>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>Current price</p>
+                                                <p class="fw-semibold text-dark">₹538</p>
+                                            </div>
+                                          </td>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>High / low</p>
+                                                <p class="fw-semibold text-dark">₹636 / 204</p>
+                                            </div>
+                                          </td>
+                                         
+                                        </tr>
+                                        <!-- row-2 -->
+                                        <tr>
+                                          <td class="py-6 ps-6 bg-secondary-subtle ">
+                                            <div class="d-flex justify-content-between">
+                                                <p>Stock P/E</p>
+                                                <p class="fw-semibold text-dark">25.3</p>
+                                            </div>
+                                          </td>
+                                          <td class="py-6 ps-6 bg-secondary-subtle " >
+                                            <div class="d-flex justify-content-between">
+                                                <p>Book Value   </p>
+                                                <p class="fw-semibold text-dark">₹133</p>
+                                            </div>
+                                          </td>
+                                          <!-- row-3 -->
+                                          <td class="py-6 ps-6 bg-secondary-subtle ">
+                                            <div class="d-flex justify-content-between">
+                                                <p>Dividned Yeid</p>
+                                                <p class="fw-semibold text-dark">0.15%</p>
+                                            </div>
+                                          </td>
+                                          
+                                        </tr>
+                                        <tr>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>ROCE</p>
+                                                <p class="fw-semibold text-dark">15.5%</p>
+                                            </div>
+                                          </td>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>ROC</p>
+                                                <p class="fw-semibold text-dark">11.16%</p>
+                                            </div>
+                                          </td>
+                                          <td class="py-6 ps-6">
+                                            <div class="d-flex justify-content-between">
+                                                <p>Face Value</p>
+                                                <p class="fw-semibold text-dark">₹10.0</p>
+                                            </div>
+                                          </td>
+                                         
+                                        </tr>
+                                       
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                            </section>
+                            <div class="mt-2 mb-4">
+                                <div>
+                                    <p class="ps-3 mb-1  text-dark">Add ratio to table</p>
+                                </div>
+                                <div class="d-flex flex-md-row w-100">
+                                    <div class="inputbox" style="width: 100%;">
+                                        <input type="text" placeholder="eg.Promoter holding" class=" form-control ms-2 p-2  border-secondary border-1 rounded">
+    
+                                    </div>
+                                    <div class="linkbox d-flex justify-content-end pe-2 align-items-center" style="width: 100%; border: 2px solid megenta;">
+                                        <a href="register.html" class="text-decoration-none " style="font-size:1rem;"><i class="fa-solid fa-pen"></i>EDIT RATIO</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 p-0 bg-white order-md-2 order-1 rounded" style=" height: auto;">
+                        <div class="p-3" style=" height: auto;">
+                           <div class="button-content d-flex gap-1 mt-3">
+                            <div>
+                                <button class="btn d-flex border border-secondary px-md-5 py-2"><i class="fa-solid fa-download"></i>
+                                    <a href="register.html" class="d-none d-md-block text-decoration-none text-secondary">Export to Excel</a></button>
+                            </div>
+                           <div>
+                            <button class="rounded px-4 py-2 text-white" style="background-color: #4a4ac5;font-size: 1rem; border:none"><i class="fa-solid fa-plus"></i><a href="register.html" class="text-white">FOLLOW</a></button>
+                           </div>
+                           </div>
+                           <div class="mt-md-5 py-2 px-3">
+                            <h4 class="text-dark" style="font-size:1.1rem;" class="fw-semibold text-dark">About</h4>
+                            <p class="text-secondary" style="font-size:0.9rem;">Established in 1981, NGL Fine-Chem Limited manufactures human and veterinary bulk drugs, intermediates, and formulations. It primarily</p>
+                            <h4 class="text-dark" style="font-size:1.1rem;" class="fw-semibold text-dark">Key Points</h4>
+                            <p class="text-secondary fw-semibold mb-0" style="font-size:1rem;">Product Portfolio</p>
+                            <p class="text-secondary fw-semibold" style="font-size:0.9rem;">Presently, Veterinary APIs are the main product</p>
+                            <div>
+                                <a href="register.html" class="text-decoration-none text-primary link-primary" style="font-size:1rem;">Read More<i class="fa-solid fa-greater-than p-1"></i></a>
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- trading chart -->
+   
+    <section id="Manganese_graph">
+        <div class="container-fluid  d-flex justify-content-center py-2" style="height: auto;">
+            <div class=" d-flex p-3 bg-white mt-4 rounded" style="width: 97%; height: auto;">
+                <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- analysis for pros and cons section -->
+    <section id="analysis" class="mt-md-5 mt-2">
+       <div class="d-flex justify-content-center rounded">
+        <div class=" bg-white rounded" style="width: 95%; height: auto; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+            <div class="row">
+                <div class="col-12 col-md-6 p-4">
+                    <div class="border border-info border-2 rounded p-2">
+                        <p class="fw-semibold text-dark">PROS</p>
+                        <ul>
+                            <li class="text-secondary">Company has reduced debt.</li>
+                            <li class="text-secondary">Company is almost debt free.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 p-4">
+                    <div class="border border-danger border-2 rounded p-2 py-3">
+                        <p class="fw-semibold text-dark">CONS</p>
+                        <ul>
+                            <li class="text-secondary">Working capital days have increased from 109 days to 323 days</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 py-0">
+                <p style="font-size: 1rem;" class="py-0">* Pros and Cons are machine generated.</p>
+            </div>
+        </div>
+       </div>
+    </section>
+
+    <section id="peer" class="py-3 mt-4 ">
+        <div class=" d-flex justify-content-center align-items-center ">
+          <div class="bg-white rounded" style="width: 93%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+               <div class="row bg-white rounded">
+                  <div class="col-12 bg-white rounded" >
+                      <div class="row ">
+                          <div class="col-12 col-md-8 p-4">
+                             <h2>Pear Consumption</h2>
+                              <div class="d-md-flex gap-3">
+                                <p class="m-0">Sector: <a href="">Mining & Mineral products</a></p>
+                                <p class="m-0">Industry <a href="">
+                                    Mining / Minerals / Metals
+                                  </a></p>
+                              </div>
+                           </div>
+                           <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3 px-2">
+                            <a class="btn btn-white btn-outline-primary" href="register.html" role="button"><i class="fa-solid fa-gear px-1"></i>EDIT COLUMN</a>
+                           </div>
+                    </div>
+                
+                
+               </div>
+                <!-- table content -->
+                <section class="py-8 px-1 mt-1">
+                  <div class="container-fluid p-0 py-2">
+                    <div class="table-responsive">
+                      <table class="table table-striped bg-white rounded  small">
+                        <thead>
+                          <tr>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">SI.No</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">Name</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">CMP Rs.</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">P/E</span>
+                              </a>
+                            </th>
+                            <th class="py-6"> 
+                              <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                                <span class="me-1">Mar Cap Rs.Cr.%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">Div Yid%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">Np Qrt Rs.Cr.%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1"> Qrt ar profit%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">sales Qrt Rs.cr%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1"> Qrt ar profit%</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">ROCE%</span>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="py-6 ps-6">1.</td>
+                            <td class="py-6 ps-6">Coal India</td>
+                            <td class="py-6 ps-6">521.75</td>
+                            <td class="py-6 ps-6">8.81</td>
+                            <td class="py-6 ps-6">321540.35</td>
+                            <td class="py-6 ps-6">4.89</td>
+                            <td class="py-6 ps-6">10943.55</td>
+                            <td class="py-6 ps-6">4.24</td>
+                            <td class="py-6 ps-6">36464.61</td>
+                            <td class="py-6 ps-6">1.34</td>
+                            <td class="py-6 ps-6">63.59</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">2.</td>
+                            <td class="py-6 ps-6">Vedanta</td>
+                            <td class="py-6 ps-6">422.35</td>
+                            <td class="py-6 ps-6">26.30	</td>
+                            <td class="py-6 ps-6">6.98</td>
+                            <td class="py-6 ps-6">5095.00</td>
+                            <td class="py-6 ps-6">142.03</td>
+                            <td class="py-6 ps-6">6.02</td>
+                            <td class="py-6 ps-6">35764.00</td>
+                            <td class="py-6 ps-6">20.91</td>
+                            <td class="py-6 ps-6">32.2</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">3.</td>
+                            <td class="py-6 ps-6">NMDC</td>
+                            <td class="py-6 ps-6">54.22</td>
+                            <td class="py-6 ps-6">1.32</td>
+                            <td class="py-6 ps-6">23.23</td>
+                            <td class="py-6 ps-6">6562.56</td>
+                            <td class="py-6 ps-6">1969.02</td>
+                            <td class="py-6 ps-6">19.18</td>
+                            <td class="py-6 ps-6">5414.19</td>
+                            <td class="py-6 ps-6">0.36</td>
+                            <td class="py-6 ps-6">31.92</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">4.</td>
+                            <td class="py-6 ps-6">Lloyds Metals</td>
+                            <td class="py-6 ps-6">746.80</td>
+                            <td class="py-6 ps-6">27.94</td>
+                            <td class="py-6 ps-6">39039.23</td>
+                            <td class="py-6 ps-6">0.13</td>
+                            <td class="py-6 ps-6">557.48</td>
+                            <td class="py-6 ps-6">38.25</td>
+                            <td class="py-6 ps-6">2417.24</td>
+                            <td class="py-6 ps-6">22.98	</td>
+                            <td class="py-6 ps-6">78.27</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">5.</td>
+                            <td class="py-6 ps-6">KIOCL</td>
+                            <td class="py-6 ps-6">420.00	</td>
+                            <td class="py-6 ps-6"></td>
+                            <td class="py-6 ps-6">25525.55</td>
+                            <td class="py-6 ps-6">0.00</td>
+                            <td class="py-6 ps-6">-42.91</td>
+                            <td class="py-6 ps-6">-152.20</td>
+                            <td class="py-6 ps-6">372.19</td>
+                            <td class="py-6 ps-6">49.34</td>
+                            <td class="py-6 ps-6">-2.13</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">6.</td>
+                            <td class="py-6 ps-6">G M D C</td>
+                            <td class="py-6 ps-6">362.35</td>
+                            <td class="py-6 ps-6">19.78</td>
+                            <td class="py-6 ps-6">11522.73</td>
+                            <td class="py-6 ps-6">3.16</td>
+                            <td class="py-6 ps-6">184.05	</td>
+                            <td class="py-6 ps-6">15.84</td>
+                            <td class="py-6 ps-6">818.13</td>
+                            <td class="py-6 ps-6">6.86</td>
+                            <td class="py-6 ps-6">13.78</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">7.</td>
+                            <td class="py-6 ps-6">	MOIL</td>
+                            <td class="py-6 ps-6">423.75</td>
+                            <td class="py-6 ps-6">24.01</td>
+                            <td class="py-6 ps-6">8622.69</td>
+                            <td class="py-6 ps-6">0.83 </td>
+                            <td class="py-6 ps-6">152.35 </td>
+                            <td class="py-6 ps-6">75.98 </td>
+                            <td class="py-6 ps-6">492.84 </td>
+                            <td class="py-6 ps-6">29.79 </td>
+                            <td class="py-6 ps-6">16.48 </td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">8.</td>
+                            <td class="py-6 ps-6">Sandur Manganese </td>
+                            <td class="py-6 ps-6">525.25</td>
+                            <td class="py-6 ps-6">24.70</td>
+                            <td class="py-6 ps-6">8510.89</td>
+                            <td class="py-6 ps-6">0.16</td>
+                            <td class="py-6 ps-6">146.35</td>
+                            <td class="py-6 ps-6">267.71</td>
+                            <td class="py-6 ps-6">601.67</td>
+                            <td class="py-6 ps-6">65.96</td>
+                            <td class="py-6 ps-6">65.96</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="inputbox d-flex  flex-column flex-md-row mt-2 mb-2">
+                      <div class="p-2"><p>Detail Comparsion with: </p></div>
+                      <div class="">
+                        <input type="text" placeholder="eg.Infosys" class="  ms-2 p-2  border-secondary border-1 rounded">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+             </div>
+             
+            </div>
+        </div>
+    </section>
+
+
+    <!-- quarterly result section -->
+    <section id="quarterly" class="py-3 mt-4 ">
+      <div class=" d-flex justify-content-center align-items-center ">
+        <div class="bg-white rounded" style="width: 94%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+             <div class="row bg-white rounded">
+                <div class="col-12 bg-white rounded" >
+                    <div class="row">
+                        <div class="col-12 col-md-8 p-4">
+                           <h2>Quarterly Result</h2>
+                            <div class="d-md-flex gap-3">
+                              <p class="m-0">Standalone Figures in Rs. Crores/ <a href="">View Consolidated</a></p>
+                              <!-- <p class="m-0">Industry <a href="">
+                                  Mining / Minerals / Metals
+                                </a></p> -->
+                            </div>
+                         </div>
+                         <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3">
+                          <a class="btn btn-white btn-outline-primary" href="register.html" role="button"><i class="fa-solid fa-gear px-1"></i>PRODUCT SEGMENTS</a>
+                         </div>
+                  </div>
+              
+              
+               </div>
+              <!-- table content -->
+              <section class="py-8 px-2 mt-1">
+                <div class="container-fluid p-0 pb-3">
+                  <div class="table-responsive">
+                    <table class="table table-striped bg-white rounded  small ">
+                      <thead>
+                        <tr>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1 "></span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1 ">jun 2021</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Sep 2021</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Dec 2021</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Mar 2022	</span>
+                            </a>
+                          </th>
+                          <th class="py-6"> 
+                            <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                              <span class="me-1">Jun 2022</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Sep 2022</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Dec 2022	</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Mar 2023</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Jun 2023	</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Sep 2023</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Dec 2023</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Mar 2024</span>
+                            </a>
+                          </th>
+                          <!-- <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">Jun 2024</span>
+                            </a>
+                          </th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="py-6 ps-6">sales +</td>
+                          <td class="py-6 ps-6">36</td>
+                          <td class="py-6 ps-6">32</td>
+                          <td class="py-6 ps-6">46</td>
+                          <td class="py-6 ps-6">66</td>
+                          <td class="py-6 ps-6">57</td>
+                          <td class="py-6 ps-6">60</td>
+                          <td class="py-6 ps-6">68</td>
+                          <td class="py-6 ps-6">95</td>
+                          <td class="py-6 ps-6">67</td>
+                          <td class="py-6 ps-6">106</td>
+                          <td class="py-6 ps-6">118</td>
+                          <td class="py-6 ps-6">105</td>
+                          <!-- <td class="py-6 ps-6">107</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Expenses +</td>
+                          <td class="py-6 ps-6">35</td>
+                          <td class="py-6 ps-6">30</td>
+                          <td class="py-6 ps-6">40</td>
+                          <td class="py-6 ps-6">50</td>
+                          <td class="py-6 ps-6">56</td>
+                          <td class="py-6 ps-6">49</td>
+                          <td class="py-6 ps-6">23</td>
+                          <td class="py-6 ps-6">56</td>
+                          <td class="py-6 ps-6">72</td>
+                          <td class="py-6 ps-6">23</td>
+                          <td class="py-6 ps-6">56</td>
+                          <td class="py-6 ps-6">42</td>
+                          <!-- <td class="py-6 ps-6">34</td> -->
+                        </tr>
+                        <tr class="fw-semibold">
+                          <td class="py-6 ps-6">Operating Profit</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">2</td>
+                          <td class="py-6 ps-6">6</td>
+                          <td class="py-6 ps-6">10</td>
+                          <td class="py-6 ps-6">7</td>
+                          <td class="py-6 ps-6">10</td>
+                          <td class="py-6 ps-6">15</td>
+                          <td class="py-6 ps-6">21</td>
+                          <td class="py-6 ps-6">20</td>
+                          <td class="py-6 ps-6">30</td>
+                          <td class="py-6 ps-6">32</td>
+                          <td class="py-6 ps-6">31</td>
+                          <!-- <td class="py-6 ps-6">29</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">OPM %</td>
+                          <td class="py-6 ps-6">4%</td>
+                          <td class="py-6 ps-6">6%</td>
+                          <td class="py-6 ps-6">10%</td>
+                          <td class="py-6 ps-6">16%</td>
+                          <td class="py-6 ps-6">41%</td>
+                          <td class="py-6 ps-6">12%</td>
+                          <td class="py-6 ps-6">32%</td>
+                          <td class="py-6 ps-6">16%</td>
+                          <td class="py-6 ps-6">17%</td>
+                          <td class="py-6 ps-6">23%</td>
+                          <td class="py-6 ps-6">25%</td>
+                          <td class="py-6 ps-6">21%</td>
+                          <!-- <td class="py-6 ps-6">23%</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Other Income</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">2</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">3</td>
+                          <td class="py-6 ps-6">5</td>
+                          <td class="py-6 ps-6">3</td>
+                          <td class="py-6 ps-6">2</td>
+                          <td class="py-6 ps-6">4</td>
+                          <td class="py-6 ps-6">2</td>
+                          <!-- <td class="py-6 ps-6">3</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Interest</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <td class="py-6 ps-6">0</td>
+                          <!-- <td class="py-6 ps-6">0</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Depreciation</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <!-- <td class="py-6 ps-6">1</td> -->
+                        </tr>
+                        <tr class="fw-semibold">
+                          <td class="py-6 ps-6">Profit before tax</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">2</td>
+                          <td class="py-6 ps-6">5</td>
+                          <td class="py-6 ps-6">10</td>
+                          <td class="py-6 ps-6">8</td>
+                          <td class="py-6 ps-6">2</td>
+                          <td class="py-6 ps-6">12</td>
+                          <td class="py-6 ps-6">13</td>
+                          <td class="py-6 ps-6">15</td>
+                          <td class="py-6 ps-6">21</td>
+                          <td class="py-6 ps-6">31</td>
+                          <td class="py-6 ps-6">11</td>
+                          <!-- <td class="py-6 ps-6">31</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Net Profit +</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">1</td>
+                          <td class="py-6 ps-6">7</td>
+                          <td class="py-6 ps-6">6</td>
+                          <td class="py-6 ps-6">9</td>
+                          <td class="py-6 ps-6">4</td>
+                          <td class="py-6 ps-6">16</td>
+                          <td class="py-6 ps-6">16</td>
+                          <td class="py-6 ps-6">13</td>
+                          <td class="py-6 ps-6">21</td>
+                          <td class="py-6 ps-6">33</td>
+                          <td class="py-6 ps-6">31</td>
+                          <!-- <td class="py-6 ps-6">24</td> -->
+                        </tr>
+                        <tr class="fw-semibold">
+                          <td class="py-6 ps-6">Eps in Rs</td>
+                          <td class="py-6 ps-6">0.79</td>
+                          <td class="py-6 ps-6">1.84</td>
+                          <td class="py-6 ps-6">6.00</td>
+                          <td class="py-6 ps-6">9.84</td>
+                          <td class="py-6 ps-6">7.64	</td>
+                          <td class="py-6 ps-6">12.03</td>
+                          <td class="py-6 ps-6">15.64</td>
+                          <td class="py-6 ps-6">21.42</td>
+                          <td class="py-6 ps-6">21.55</td>
+                          <td class="py-6 ps-6">31.99</td>
+                          <td class="py-6 ps-6">34.21</td>
+                          <td class="py-6 ps-6">32.81</td>
+                          <!-- <td class="py-6 ps-6">31.44</td> -->
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Raw PDF</td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                        </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td>
+                          <!-- <td class="py-6 ps-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                              <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                              <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                            </svg>
+                          </td> -->
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </section>              
+            </div>          
+          </div>
+      </div>
+  </section>
+
+  <!-- profit and loss section -->
+  <section id="Profit&loss" class="py-3 px-1 mt-4 ">
+    <div class=" d-flex justify-content-center align-items-center ">
+      <div class="bg-white rounded" style="width: 94%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+           <div class="row bg-white p-2">
+              <div class="col-12 bg-white" >
+                  <div class="row">
+                      <div class="col-12 col-md-8 p-4">
+                         <h2>Profit & loss</h2>
+                          <div class="d-md-flex gap-3">
+                            <p class="m-0">Standalone Figures in Rs. Crores/ <a href="">View Consolidated</a></p>
+                            <!-- <p class="m-0">Industry <a href="">
+                                Mining / Minerals / Metals
+                              </a></p> -->
+                          </div>
+                       </div>
+                       <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start gap-1 p-md-3">
+                        <button class="btn btn-outline-primary" style="font-size: 0.9rem;"><i class="fa-solid fa-users small px-1"></i>RELATED PARTIES</button>
+                        <button class="btn btn-outline-primary"  style="font-size: 0.9rem;">Product SEGMENT</button>
+                       </div>
+                </div>
+            
+            
+             </div>
+            <!-- table content -->
+            <section class="py-8 px-1 mt-0">
+              <div class="container-fluid p-0">
+                <div class="table-responsive">
+                  <table class="table table-striped bg-white rounded  small">
+                    <thead>
+                      <tr>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1"></span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1 ">mar 2013</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2014</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2015</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2016	</span>
+                          </a>
+                        </th>
+                        <th class="py-6"> 
+                          <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2017</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2018</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2019	</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2020</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2021	</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2022</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2023</span>
+                          </a>
+                        </th>
+                        <!-- <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">mar 2024</span>
+                          </a>
+                        </th> -->
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">TTM</span>
+                          </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="py-6 ps-6">sales +</td>
+                        <td class="py-6 ps-6">36</td>
+                        <td class="py-6 ps-6">32</td>
+                        <td class="py-6 ps-6">46</td>
+                        <td class="py-6 ps-6">66</td>
+                        <td class="py-6 ps-6">57</td>
+                        <td class="py-6 ps-6">60</td>
+                        <td class="py-6 ps-6">68</td>
+                        <td class="py-6 ps-6">95</td>
+                        <td class="py-6 ps-6">67</td>
+                        <td class="py-6 ps-6">106</td>
+                        <td class="py-6 ps-6">118</td>
+                        <!-- <td class="py-6 ps-6">105</td> -->
+                        <td class="py-6 ps-6">107</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Expenses +</td>
+                        <td class="py-6 ps-6">35</td>
+                        <td class="py-6 ps-6">30</td>
+                        <td class="py-6 ps-6">40</td>
+                        <td class="py-6 ps-6">50</td>
+                        <td class="py-6 ps-6">56</td>
+                        <td class="py-6 ps-6">49</td>
+                        <td class="py-6 ps-6">23</td>
+                        <td class="py-6 ps-6">56</td>
+                        <td class="py-6 ps-6">72</td>
+                        <td class="py-6 ps-6">23</td>
+                        <td class="py-6 ps-6">56</td>
+                        <!-- <td class="py-6 ps-6">42</td> -->
+                        <td class="py-6 ps-6">34</td>
+                      </tr>
+                      <tr class="fw-semibold">
+                        <td class="py-6 ps-6">Operating Profit</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">2</td>
+                        <td class="py-6 ps-6">6</td>
+                        <td class="py-6 ps-6">10</td>
+                        <td class="py-6 ps-6">7</td>
+                        <td class="py-6 ps-6">10</td>
+                        <td class="py-6 ps-6">15</td>
+                        <td class="py-6 ps-6">21</td>
+                        <td class="py-6 ps-6">20</td>
+                        <td class="py-6 ps-6">30</td>
+                        <td class="py-6 ps-6">32</td>
+                        <!-- <td class="py-6 ps-6">31</td> -->
+                        <td class="py-6 ps-6">29</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">OPM %</td>
+                        <td class="py-6 ps-6">4%</td>
+                        <td class="py-6 ps-6">6%</td>
+                        <td class="py-6 ps-6">10%</td>
+                        <td class="py-6 ps-6">16%</td>
+                        <td class="py-6 ps-6">41%</td>
+                        <td class="py-6 ps-6">12%</td>
+                        <td class="py-6 ps-6">32%</td>
+                        <td class="py-6 ps-6">16%</td>
+                        <td class="py-6 ps-6">17%</td>
+                        <td class="py-6 ps-6">23%</td>
+                        <td class="py-6 ps-6">25%</td>
+                        <!-- <td class="py-6 ps-6">21%</td> -->
+                        <td class="py-6 ps-6">23%</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Other Income</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">2</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">3</td>
+                        <td class="py-6 ps-6">5</td>
+                        <td class="py-6 ps-6">3</td>
+                        <td class="py-6 ps-6">2</td>
+                        <td class="py-6 ps-6">4</td>
+                        <!-- <td class="py-6 ps-6">2</td> -->
+                        <td class="py-6 ps-6">3</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Interest</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <td class="py-6 ps-6">0</td>
+                        <!-- <td class="py-6 ps-6">0</td> -->
+                        <td class="py-6 ps-6">0</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Depreciation</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <!-- <td class="py-6 ps-6">1</td> -->
+                        <td class="py-6 ps-6">1</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Profit before tax</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">2</td>
+                        <td class="py-6 ps-6">5</td>
+                        <td class="py-6 ps-6">10</td>
+                        <td class="py-6 ps-6">8</td>
+                        <td class="py-6 ps-6">2</td>
+                        <td class="py-6 ps-6">12</td>
+                        <td class="py-6 ps-6">13</td>
+                        <td class="py-6 ps-6">15</td>
+                        <td class="py-6 ps-6">21</td>
+                        <td class="py-6 ps-6">31</td>
+                        <!-- <td class="py-6 ps-6">11</td> -->
+                        <td class="py-6 ps-6">31</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Net Profit +</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">1</td>
+                        <td class="py-6 ps-6">7</td>
+                        <td class="py-6 ps-6">6</td>
+                        <td class="py-6 ps-6">9</td>
+                        <td class="py-6 ps-6">4</td>
+                        <td class="py-6 ps-6">16</td>
+                        <td class="py-6 ps-6">16</td>
+                        <td class="py-6 ps-6">13</td>
+                        <td class="py-6 ps-6">21</td>
+                        <td class="py-6 ps-6">33</td>
+                        <!-- <td class="py-6 ps-6">31</td> -->
+                        <td class="py-6 ps-6">24</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Eps in Rs</td>
+                        <td class="py-6 ps-6">0.79</td>
+                        <td class="py-6 ps-6">1.84</td>
+                        <td class="py-6 ps-6">6.00</td>
+                        <td class="py-6 ps-6">9.84</td>
+                        <td class="py-6 ps-6">7.64	</td>
+                        <td class="py-6 ps-6">12.03</td>
+                        <td class="py-6 ps-6">15.64</td>
+                        <td class="py-6 ps-6">21.42</td>
+                        <td class="py-6 ps-6">21.55</td>
+                        <td class="py-6 ps-6">31.99</td>
+                        <td class="py-6 ps-6">34.21</td>
+                        <!-- <td class="py-6 ps-6">32.81</td> -->
+                        <td class="py-6 ps-6">31.44</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">Dividend Payout %</td>
+                        <td class="py-6 ps-6">
+                         15%
+                         </td>
+                        <td class="py-6 ps-6">10%
+                          
+                        </td>
+                        <td class="py-6 ps-6">10%
+                         
+                        </td>
+                        <td class="py-6 ps-6">15%
+                          
+                        </td>
+                        <td class="py-6 ps-6">10%
+                          
+                        </td>
+                        <td class="py-6 ps-6">10%
+                         
+                        </td>
+                        <td class="py-6 ps-6">15%
+                         
+                        </td>
+                        <td class="py-6 ps-6">10%
+                          
+                        </td>
+                        <td class="py-6 ps-6">10%
+                          
+                        </td>
+                        <td class="py-6 ps-6">10%
+                         
+                        </td>
+                        <td class="py-6 ps-6">15%
+                          
+                        <!-- </td>
+                        <td class="py-6 ps-6">10%
+                          
+                        </td> -->
+                        <td class="py-6 ps-6">10%
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+              </div>
+            </section>
+            <!-- componded flex sontent -->
+             <div class="d-flex justify-content-center mt-3 componded_flex" style="height: auto;">
+                <div class="d-md-flex gap-2 rounded" style="width: 98%;">
+                     <div class="rounded px-3 border border-secondary" style=" width: 100%;">
+                      <table class="table small ">
+                        <thead>
+                          <tr>
+                            <th class=" " style="color: hsl(240, 16%, 16%);">Componded sales growth</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="fw-medium text-secondary">10 years</th>
+                            <td>15</td>
+                        
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">5 years</th>
+                            <td>27%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">3 years</th>
+                            <td>50%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">TTM</th>
+                            <td>50%</td>
+                          </tr>
+                          </tbody>
+                          </table>
+                     </div>
+                     <div class="rounded px-3 border border-secondary" style=" width: 100%;">
+                      <table class="table small ">
+                        <thead>
+                          <tr>
+                            <th class="" style="color: hsl(240, 16%, 16%);"> Profit growth</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="fw-medium text-secondary">10 years</th>
+                            <td>36</td>
+                        
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">5 years</th>
+                            <td>64%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">3 years</th>
+                            <td>155%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">TTM</th>
+                            <td>85%</td>
+                          </tr>
+                          </tbody>
+                          </table>
+                     </div>
+                     <div class="rounded px-3 border border-secondary" style=" width: 100%;">
+                      <table class="table small ">
+                        <thead>
+                          <tr>
+                            <th class=" " style="color: hsl(240, 16%, 16%);">Return on equality</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="fw-medium text-secondary">10 years</th>
+                            <td>29</td>
+                        
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">5 years</th>
+                            <td>34%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">3 years</th>
+                            <td>44%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium text-secondary">TTM</th>
+                            <td>56%</td>
+                          </tr>
+                          </tbody>
+                          </table>
+                     </div>
+                     <div class="rounded px-3 border border-secondary" style=" width: 100%; font-family: Inter var, Inter, sans-serif;">
+                      <table class="table small  p-1">
+                        <thead>
+                          <tr>
+                            <th class=" " style="color: hsl(240, 16%, 16%); ">Componded sales growth</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th class="fw-medium">10 years</th>
+                            <td>29</td>
+                        
+                          </tr>
+                          <tr>
+                            <th class="fw-medium">5 years</th>
+                            <td>34%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium">3 years</th>
+                            <td>49%</td>
+                          </tr>
+                          <tr>
+                            <th class="fw-medium">TTM</th>
+                            <td>56%</td>
+                          </tr>
+                          </tbody>
+                          </table>
+                     </div>
+                </div>
+             </div>
+          </div>
+         
+        </div>
+    </div>
+</section>
+
+<!-- Balence Sheet -->
+<section id="balence_sheet" class="py-3 mt-4 ">
+  <div class=" d-flex justify-content-center align-items-center rounded">
+    <div class="bg-white rounded" style="width: 93%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+         <div class="row bg-white p-2 rounded">
+            <div class="col-12 bg-white rounded" >
+                <div class="row">
+                    <div class="col-12 col-md-8 p-4">
+                       <h2>Balence Sheet</h2>
+                        <div class="d-md-flex gap-3">
+                          <p class="m-0">Figures in RS. Crores <!--<a href="">View Consolidated</a> --></p>
+                          <!-- <p class="m-0">Industry <a href="">
+                              Mining / Minerals / Metals
+                            </a></p> -->
+                        </div>
+                     </div>
+                     <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3">
+                      <a class="btn btn-white btn-outline-primary" href="register.html" role="button">CORPORATE ACTIONS</a>
+                     </div>
+              </div>
+          
+          
+           </div>
+          <!-- table content -->
+          <section class="py-8 px-1 mt-1">
+            <div class="container-fluid p-0 pb-1">
+              <div class="table-responsive">
+                <table class="table table-striped bg-white rounded  small">
+                  <thead>
+                    <tr>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1 "></span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1 ">june 2021</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Sep 2021</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Dec 2021</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Mar 2022	</span>
+                        </a>
+                      </th>
+                      <th class="py-6"> 
+                        <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                          <span class="me-1">Jun 2022</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Sep 2022</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Dec 2022	</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Mar 2023</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Jun 2023	</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Sep 2023</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Dec 2023</span>
+                        </a>
+                      </th>
+                      <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Mar 2024</span>
+                        </a>
+                      </th>
+                      <!-- <th class="py-6 ps-6">
+                        <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                          <span class="me-1">Jun 2024</span>
+                        </a>
+                      </th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="py-6 ps-6">sales +</td>
+                      <td class="py-6 ps-6">36</td>
+                      <td class="py-6 ps-6">32</td>
+                      <td class="py-6 ps-6">46</td>
+                      <td class="py-6 ps-6">66</td>
+                      <td class="py-6 ps-6">57</td>
+                      <td class="py-6 ps-6">60</td>
+                      <td class="py-6 ps-6">68</td>
+                      <td class="py-6 ps-6">95</td>
+                      <td class="py-6 ps-6">67</td>
+                      <td class="py-6 ps-6">106</td>
+                      <td class="py-6 ps-6">118</td>
+                      <td class="py-6 ps-6">105</td>
+                      <!-- <td class="py-6 ps-6">107</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Expenses +</td>
+                      <td class="py-6 ps-6">35</td>
+                      <td class="py-6 ps-6">30</td>
+                      <td class="py-6 ps-6">40</td>
+                      <td class="py-6 ps-6">50</td>
+                      <td class="py-6 ps-6">56</td>
+                      <td class="py-6 ps-6">49</td>
+                      <td class="py-6 ps-6">23</td>
+                      <td class="py-6 ps-6">56</td>
+                      <td class="py-6 ps-6">72</td>
+                      <td class="py-6 ps-6">23</td>
+                      <td class="py-6 ps-6">56</td>
+                      <td class="py-6 ps-6">42</td>
+                      <!-- <td class="py-6 ps-6">34</td> -->
+                    </tr>
+                    <tr class="fw-semibold">
+                      <td class="py-6 ps-6">Operating Profit</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">2</td>
+                      <td class="py-6 ps-6">6</td>
+                      <td class="py-6 ps-6">10</td>
+                      <td class="py-6 ps-6">7</td>
+                      <td class="py-6 ps-6">10</td>
+                      <td class="py-6 ps-6">15</td>
+                      <td class="py-6 ps-6">21</td>
+                      <td class="py-6 ps-6">20</td>
+                      <td class="py-6 ps-6">30</td>
+                      <td class="py-6 ps-6">32</td>
+                      <td class="py-6 ps-6">31</td>
+                      <!-- <td class="py-6 ps-6">29</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">OPM %</td>
+                      <td class="py-6 ps-6">4%</td>
+                      <td class="py-6 ps-6">6%</td>
+                      <td class="py-6 ps-6">10%</td>
+                      <td class="py-6 ps-6">16%</td>
+                      <td class="py-6 ps-6">41%</td>
+                      <td class="py-6 ps-6">12%</td>
+                      <td class="py-6 ps-6">32%</td>
+                      <td class="py-6 ps-6">16%</td>
+                      <td class="py-6 ps-6">17%</td>
+                      <td class="py-6 ps-6">23%</td>
+                      <td class="py-6 ps-6">25%</td>
+                      <td class="py-6 ps-6">21%</td>
+                      <!-- <td class="py-6 ps-6">23%</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Other Income</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">2</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">3</td>
+                      <td class="py-6 ps-6">5</td>
+                      <td class="py-6 ps-6">3</td>
+                      <td class="py-6 ps-6">2</td>
+                      <td class="py-6 ps-6">4</td>
+                      <td class="py-6 ps-6">2</td>
+                      <!-- <td class="py-6 ps-6">3</td> -->
+                    </tr>
+                    <tr class="fw-semibold">
+                      <td class="py-6 ps-6">Interest</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <td class="py-6 ps-6">0</td>
+                      <!-- <td class="py-6 ps-6">0</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Depreciation</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <!-- <td class="py-6 ps-6">1</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Profit before tax</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">2</td>
+                      <td class="py-6 ps-6">5</td>
+                      <td class="py-6 ps-6">10</td>
+                      <td class="py-6 ps-6">8</td>
+                      <td class="py-6 ps-6">2</td>
+                      <td class="py-6 ps-6">12</td>
+                      <td class="py-6 ps-6">13</td>
+                      <td class="py-6 ps-6">15</td>
+                      <td class="py-6 ps-6">21</td>
+                      <td class="py-6 ps-6">31</td>
+                      <td class="py-6 ps-6">11</td>
+                      <!-- <td class="py-6 ps-6">31</td> -->
+                    </tr>
+                    <tr class="fw-semibold">
+                      <td class="py-6 ps-6">Net Profit +</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">1</td>
+                      <td class="py-6 ps-6">7</td>
+                      <td class="py-6 ps-6">6</td>
+                      <td class="py-6 ps-6">9</td>
+                      <td class="py-6 ps-6">4</td>
+                      <td class="py-6 ps-6">16</td>
+                      <td class="py-6 ps-6">16</td>
+                      <td class="py-6 ps-6">13</td>
+                      <td class="py-6 ps-6">21</td>
+                      <td class="py-6 ps-6">33</td>
+                      <td class="py-6 ps-6">31</td>
+                      <!-- <td class="py-6 ps-6">24</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Eps in Rs</td>
+                      <td class="py-6 ps-6">0.79</td>
+                      <td class="py-6 ps-6">1.84</td>
+                      <td class="py-6 ps-6">6.00</td>
+                      <td class="py-6 ps-6">9.84</td>
+                      <td class="py-6 ps-6">7.64	</td>
+                      <td class="py-6 ps-6">12.03</td>
+                      <td class="py-6 ps-6">15.64</td>
+                      <td class="py-6 ps-6">21.42</td>
+                      <td class="py-6 ps-6">21.55</td>
+                      <td class="py-6 ps-6">31.99</td>
+                      <td class="py-6 ps-6">34.21</td>
+                      <td class="py-6 ps-6">32.81</td>
+                      <!-- <td class="py-6 ps-6">31.44</td> -->
+                    </tr>
+                    <tr>
+                      <td class="py-6 ps-6">Dividend Profit%</td>
+                      <td class="py-6 ps-6">15%
+                        
+                    </td>
+                      <td class="py-6 ps-6">12%
+                        
+                      </td>
+                      <td class="py-6 ps-6">12%
+                        
+                      </td>
+                      <td class="py-6 ps-6">15%
+                       
+                      </td>
+                      <td class="py-6 ps-6">14%
+                       
+                      </td>
+                      <td class="py-6 ps-6">15%
+                        
+                      </td>
+                      <td class="py-6 ps-6">14%
+                        
+                      </td>
+                      <td class="py-6 ps-6">15%
+                        
+                      </td>
+                      <td class="py-6 ps-6">12%
+                        
+                      </td>
+                      <td class="py-6 ps-6">15%
+                        
+                      </td>
+                      <td class="py-6 ps-6">13%
+                       
+                      </td>
+                      <td class="py-6 ps-6">15%
+                        
+                      <!-- </td>
+                      <td class="py-6 ps-6">14%
+                        
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div>
+            </div>
+          </section>              
+        </div>          
+      </div>
+  </div>
+</section>
+
+  <!-- cashflow section -->
+    <section id="cashflow" class="py-3 mt-4 ">
+        <div class=" d-flex justify-content-center align-items-center rounded">
+          <div class="bg-white" style="width: 94%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+               <div class="row bg-white rounded">
+                  <div class="col-12 bg-white rounded" >
+                      <div class="row rounded">
+                          <div class="col-12 col-md-12 p-4">
+                             <h2>Cash Flow</h2>
+                              <div class="d-md-flex gap-3">
+                                <p class="m-0">Standalone Figures in Rs. Crores:/<a href=""> View Consolidated</a></p>
+                                <!-- <p class="m-0">Industry <a href="">
+                                    Mining / Minerals / Metals
+                                  </a></p> -->
+                              </div>
+                           </div>
+                           <!-- <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3">
+                            <button class="btn btn-outline-primary"><i class="fa-solid fa-gear"></i> EDIT COLUMNS</button>
+                           </div> -->
+                    </div>
+                
+                
+               </div>
+                <!-- table content -->
+                <section class="py-8 px-1 mt-1">
+                  <div class="container-fluid p-0 pb-2">
+                    <div class="table-responsive">
+                      <table class="table table-striped bg-white rounded  small">
+                        <thead>
+                          <tr>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1"></span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2013</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2014</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2015</span>
+                              </a>
+                            </th>
+                            <th class="py-6"> 
+                              <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                                <span class="me-1">Mar 2016</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2017</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2018</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2019</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2020</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2021</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2022</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1">mar 2023</span>
+                              </a>
+                            </th>
+                            <th class="py-6 ps-6">
+                              <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                                <span class="me-1"> mar 2024</span>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="py-6 ps-6">Cash from Operating Activity +</td>
+                            <td class="py-6 ps-6">24</td>
+                            <td class="py-6 ps-6">6</td>
+                            <td class="py-6 ps-6">30</td>
+                            <td class="py-6 ps-6">3</td>
+                            <td class="py-6 ps-6">80</td>
+                            <td class="py-6 ps-6">122</td>
+                            <td class="py-6 ps-6">169</td>
+                            <td class="py-6 ps-6">-13</td>
+                            <td class="py-6 ps-6">340</td>
+                            <td class="py-6 ps-6">837</td>
+                            <td class="py-6 ps-6">143</td>
+                            <td class="py-6 ps-6">154</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">Cash from Investing Activity +</td>
+                            <td class="py-6 ps-6">-22</td>
+                            <td class="py-6 ps-6">-6</td>
+                            <td class="py-6 ps-6">-20</td>
+                            <td class="py-6 ps-6">3</td>
+                            <td class="py-6 ps-6">-68</td>
+                            <td class="py-6 ps-6">-106</td>
+                            <td class="py-6 ps-6">-147</td>
+                            <td class="py-6 ps-6">-370</td>
+                            <td class="py-6 ps-6">-249</td>
+                            <td class="py-6 ps-6">-754</td>
+                            <td class="py-6 ps-6">-12</td>
+                            <td class="py-6 ps-6">-49</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">Cash from Financing Activity +</td>
+                            <td class="py-6 ps-6">-0</td>
+                            <td class="py-6 ps-6">-0</td>
+                            <td class="py-6 ps-6">-3</td>
+                            <td class="py-6 ps-6">-3</td>
+                            <td class="py-6 ps-6">-12</td>
+                            <td class="py-6 ps-6">-13</td>
+                            <td class="py-6 ps-6">-12</td>
+                            <td class="py-6 ps-6">-13</td>
+                            <td class="py-6 ps-6">378</td>
+                            <td class="py-6 ps-6">-58</td>
+                            <td class="py-6 ps-6">-147</td>
+                            <td class="py-6 ps-6">-107</td>
+                          </tr>
+                          <tr>
+                            <td class="py-6 ps-6">Net Cash Flow</td>
+                            <td class="py-6 ps-6">2</td>
+                            <td class="py-6 ps-6">-1</td>
+                            <td class="py-6 ps-6">6</td>
+                            <td class="py-6 ps-6">3</td>
+                            <td class="py-6 ps-6">-0</td>
+                            <td class="py-6 ps-6">3</td>
+                            <td class="py-6 ps-6">10</td>
+                            <td class="py-6 ps-6">-6</td>
+                            <td class="py-6 ps-6">32</td>
+                            <td class="py-6 ps-6">-26</td>
+                            <td class="py-6 ps-6">-16</td>
+                            <td class="py-6 ps-6">-2</td>
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                </section>
+             </div>
+             
+            </div>
+        </div>
+    </section>
+
+    <!-- ratio content -->
+    <section id="ratio" class="py-3 mt-4 ">
+      <div class=" d-flex justify-content-center align-items-center rounded">
+        <div class="bg-white" style="width: 94%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+             <div class="row bg-white">
+                <div class="col-12 bg-white" >
+                    <div class="row">
+                        <div class="col-12 col-md-12 p-4">
+                           <h2>Ratio</h2>
+                            <div class="d-md-flex gap-3">
+                              <p class="m-0">Standalone Figures in Rs. Crores:/<a href=""> View Consolidated</a></p>
+                              <!-- <p class="m-0">Industry <a href="">
+                                  Mining / Minerals / Metals
+                                </a></p> -->
+                            </div>
+                         </div>
+                         <!-- <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3">
+                          <button class="btn btn-outline-primary"><i class="fa-solid fa-gear"></i> EDIT COLUMNS</button>
+                         </div> -->
+                  </div>
+              
+              
+             </div>
+              <!-- table content -->
+              <section class="py-8 px-1 mt-1">
+                <div class="container-fluid p-0">
+                  <div class="table-responsive pb-2">
+                    <table class="table table-striped bg-white rounded  small">
+                      <thead>
+                        <tr>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1"></span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2013</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2014</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2015</span>
+                            </a>
+                          </th>
+                          <th class="py-6"> 
+                            <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                              <span class="me-1">Mar 2016</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2017</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2018</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2019</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2020</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2021</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2022</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1">mar 2023</span>
+                            </a>
+                          </th>
+                          <th class="py-6 ps-6">
+                            <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                              <span class="me-1"> mar 2024</span>
+                            </a>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="py-6 ps-6">Debtor Days</td>
+                          <td class="py-6 ps-6">62</td>
+                          <td class="py-6 ps-6">69</td>
+                          <td class="py-6 ps-6">4</td>
+                          <td class="py-6 ps-6">14</td>
+                          <td class="py-6 ps-6">5</td>
+                          <td class="py-6 ps-6">3</td>
+                          <td class="py-6 ps-6">11</td>
+                          <td class="py-6 ps-6">19</td>
+                          <td class="py-6 ps-6">37</td>
+                          <td class="py-6 ps-6">33</td>
+                          <td class="py-6 ps-6">25</td>
+                          <td class="py-6 ps-6">10</td>
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Inventory Days</td>
+                          <td class="py-6 ps-6">498</td>
+                          <td class="py-6 ps-6">782</td>
+                          <td class="py-6 ps-6"></td>
+                          <td class="py-6 ps-6"></td>
+                          <td class="py-6 ps-6">685</td>
+                          <td class="py-6 ps-6">234</td>
+                          <td class="py-6 ps-6">-432</td>
+                          <td class="py-6 ps-6">-342</td>
+                          <td class="py-6 ps-6">1,172</td>
+                          <td class="py-6 ps-6">278</td>
+                          <td class="py-6 ps-6">213</td>
+                          <td class="py-6 ps-6">792</td>
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Days Payable</td>
+                          <td class="py-6 ps-6">197</td>
+                          <td class="py-6 ps-6">419</td>
+                          <td class="py-6 ps-6">4</td>
+                          <td class="py-6 ps-6"></td>
+                          <td class="py-6 ps-6">432</td>
+                          <td class="py-6 ps-6">271</td>
+                          <td class="py-6 ps-6">653</td>
+                          <td class="py-6 ps-6">598</td>
+                          <td class="py-6 ps-6">233</td>
+                          <td class="py-6 ps-6">-109</td>
+                          <td class="py-6 ps-6">235</td>
+                          <td class="py-6 ps-6">876</td>
+                        </tr>
+                        <tr class="fw-semibold">
+                          <td class="py-6 ps-6">Cash Conversion Cycle</td>
+                          <td class="py-6 ps-6">363</td>
+                          <td class="py-6 ps-6">432</td>
+                          <td class="py-6 ps-6">4</td>
+                          <td class="py-6 ps-6">481</td>
+                          <td class="py-6 ps-6">285</td>
+                          <td class="py-6 ps-6">99</td>
+                          <td class="py-6 ps-6">-16</td>
+                          <td class="py-6 ps-6">611</td>
+                          <td class="py-6 ps-6">-160</td>
+                          <td class="py-6 ps-6">-88</td>
+                          <td class="py-6 ps-6">37</td>
+                          <td class="py-6 ps-6">529</td>
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">Working Capital Days</td>
+                          <td class="py-6 ps-6">-52</td>
+                          <td class="py-6 ps-6">20</td>
+                          <td class="py-6 ps-6">-13</td>
+                          <td class="py-6 ps-6">-11</td>
+                          <td class="py-6 ps-6">-5</td>
+                          <td class="py-6 ps-6">-16</td>
+                          <td class="py-6 ps-6">-12</td>
+                          <td class="py-6 ps-6">-160</td>
+                          <td class="py-6 ps-6">-88</td>
+                          <td class="py-6 ps-6">-88</td>
+                          <td class="py-6 ps-6">21</td>
+                          <td class="py-6 ps-6">323</td>
+                        </tr>
+                        <tr>
+                          <td class="py-6 ps-6">ROCE %</td>
+                          <td class="py-6 ps-6">12%</td>
+                          <td class="py-6 ps-6">16%</td>
+                          <td class="py-6 ps-6">6%</td>
+                          <td class="py-6 ps-6">0%</td>
+                          <td class="py-6 ps-6"> 23%</td>
+                          <td class="py-6 ps-6">30%</td>
+                          <td class="py-6 ps-6"> 16%</td>
+                          <td class="py-6 ps-6">11%</td>
+                          <td class="py-6 ps-6">16%</td>
+                          <td class="py-6 ps-6">8%</td>
+                          <td class="py-6 ps-6">7%</td>
+                          <td class="py-6 ps-6">20%</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </section>
+           </div>
+           
+          </div>
+      </div>
+  </section>
+
+  <!-- Shareholding content -->
+
+  <section id="ratio" class="py-3 mt-4 mb-5">
+    <div class=" d-flex justify-content-center align-items-center rounded">
+      <div class="bg-white" style="width: 94%;" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+           <div class="row bg-white">
+              <div class="col-12 bg-white" >
+                  <div class="row">
+                      <div class="col-12 col-md-8 p-4">
+                         <h2>Shareholding Pattern</h2>
+                          <div class="d-md-flex gap-3">
+                            <p class="m-0">Number in Percentage  <!--<a href=""> View Consolidated</a> --> </p>
+                            <!-- <p class="m-0">Industry <a href="">
+                                Mining / Minerals / Metals
+                              </a></p> -->
+                          </div>
+                       </div>
+                       <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end align-items-start p-md-3">
+                        <button class="btn btn-outline-primary" style="font-size: 0.9rem;"><i class="fa-solid fa-gear"></i> TRADES</button>
+                       </div> 
+                </div>
+            
+            
+           </div>
+            <!-- table content -->
+            <section class="py-8 px-1 mt-1">
+              <div class="container-fluid p-0">
+                <div class="table-responsive pb-2">
+                  <table class="table table-striped bg-white rounded  small">
+                    <thead>
+                      <tr>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1"></span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">sep 2021</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Dec 2021</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Mar 2022</span>
+                          </a>
+                        </th>
+                        <th class="py-6"> 
+                          <a class="btn p-0 d-flex  align-items-center text-secondary" href="#">
+                            <span class="me-1">Jun 2022</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Sep 2022</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Dec 2022</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Mar 2023</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Jun 2023</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Sep 2023</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Dec 2023</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1">Jan 2024</span>
+                          </a>
+                        </th>
+                        <th class="py-6 ps-6">
+                          <a class="btn p-0 d-flex align-items-center text-secondary" href="#">
+                            <span class="me-1"> mar 2024</span>
+                          </a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="py-6 ps-6">Promoters +</td>
+                        <td class="py-6 ps-6">73.22%</td>
+                        <td class="py-6 ps-6">73.18%</td>
+                        <td class="py-6 ps-6">74.18%</td>
+                        <td class="py-6 ps-6">73.16%</td>
+                        <td class="py-6 ps-6">72.14%</td>
+                        <td class="py-6 ps-6">74.12%</td>
+                        <td class="py-6 ps-6">73.18%</td>
+                        <td class="py-6 ps-6">71.14%</td>
+                        <td class="py-6 ps-6">73.18%</td>
+                        <td class="py-6 ps-6">74.15%</td>
+                        <td class="py-6 ps-6">71.18%</td>
+                        <td class="py-6 ps-6">73.13%</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">FIIs +</td>
+                        <td class="py-6 ps-6">0.13%</td>
+                        <td class="py-6 ps-6">0.14%</td>
+                        <td class="py-6 ps-6">0.15%</td>
+                        <td class="py-6 ps-6">0.13%</td>
+                        <td class="py-6 ps-6">0.12%</td>
+                        <td class="py-6 ps-6">0.16%</td>
+                        <td class="py-6 ps-6">0.14%</td>
+                        <td class="py-6 ps-6">0.12%</td>
+                        <td class="py-6 ps-6">0.17%</td>
+                        <td class="py-6 ps-6">0.14%</td>
+                        <td class="py-6 ps-6">0.18%</td>
+                        <td class="py-6 ps-6">0.11%</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">DIIs +</td>
+                        <td class="py-6 ps-6">0.83%</td>
+                        <td class="py-6 ps-6">0.82%</td>
+                        <td class="py-6 ps-6">0.86%</td>
+                        <td class="py-6 ps-6">0.84%</td>
+                        <td class="py-6 ps-6">0.42%</td>
+                        <td class="py-6 ps-6">0.52%</td>
+                        <td class="py-6 ps-6">0.83%</td>
+                        <td class="py-6 ps-6">0.87%</td>
+                        <td class="py-6 ps-6">0.72%</td>
+                        <td class="py-6 ps-6">0.38%</td>
+                        <td class="py-6 ps-6">0.82%</td>
+                        <td class="py-6 ps-6">0.52%</td>
+                      </tr>
+                      <tr class="fw-semibold">
+                        <td class="py-6 ps-6">Public +</td>
+                        <td class="py-6 ps-6">25.64%</td>
+                        <td class="py-6 ps-6">25.67%</td>
+                        <td class="py-6 ps-6">24.63%</td>
+                        <td class="py-6 ps-6">25.62%</td>
+                        <td class="py-6 ps-6">24.68%</td>
+                        <td class="py-6 ps-6">25.63%</td>
+                        <td class="py-6 ps-6">25.68%</td>
+                        <td class="py-6 ps-6">24.64%</td>
+                        <td class="py-6 ps-6">25.62%</td>
+                        <td class="py-6 ps-6">25.69%</td>
+                        <td class="py-6 ps-6">22.64%</td>
+                        <td class="py-6 ps-6">25.62%</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">No. of Shareholders</td>
+                        <td class="py-6 ps-6">12,955</td>
+                        <td class="py-6 ps-6">12,678</td>
+                        <td class="py-6 ps-6">12,345</td>
+                        <td class="py-6 ps-6">12,034</td>
+                        <td class="py-6 ps-6">12,834</td>
+                        <td class="py-6 ps-6">12,i37</td>
+                        <td class="py-6 ps-6">12,762</td>
+                        <td class="py-6 ps-6">12,029</td>
+                        <td class="py-6 ps-6">12,128</td>
+                        <td class="py-6 ps-6">12,348</td>
+                        <td class="py-6 ps-6">12,392</td>
+                        <td class="py-6 ps-6">12,290</td>
+                      </tr>
+                      <tr>
+                        <td class="py-6 ps-6">ROCE %</td>
+                        <td class="py-6 ps-6">12%</td>
+                        <td class="py-6 ps-6">16%</td>
+                        <td class="py-6 ps-6">6%</td>
+                        <td class="py-6 ps-6">0%</td>
+                        <td class="py-6 ps-6"> 23%</td>
+                        <td class="py-6 ps-6">30%</td>
+                        <td class="py-6 ps-6"> 16%</td>
+                        <td class="py-6 ps-6">11%</td>
+                        <td class="py-6 ps-6">16%</td>
+                        <td class="py-6 ps-6">8%</td>
+                        <td class="py-6 ps-6">7%</td>
+                        <td class="py-6 ps-6">20%</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div>
+              </div>
+            </section>
+             <div class="p-3 py-0">
+                <p style="font-size: 1rem;" class="py-0">* Pros and Cons are machine generated.</p>
+            </div>
+         </div>
+           
+        </div>
+    </div>
+</section>
+
+
+
+
+
+</main>
+<footer>
+  <main>
+    <section>
+      <div class="container-fluid bg-light" style=" height: auto;">
+        <div class="container-fluid mt-1" style=" height: auto;">
+          <div class="row">
+            <div class="col-12 col-md-6 order-2 order-md-1 mb-3" style=" height: auto;">
+              <img src="image/logo-header.svg" class="img-fluid" alt="" style="width:120px; height:70px">
+              <p class="fs-bolder">Stock analysis and screening tool</p>
+              <p>Mittal Analytics Private Ltd © 2009-2024 <br><span>made with<i
+                    class="fa-solid fa-heart text-danger"></i> in India</span></p>
+              <p>Data provided by C-MOTS Internet Technologies Pvt Ltd</p>
+              <a>Terms & Privacy</a>
+            </div>
+            <div class="col-12 col-md-6 order-1 order-md-2" style="height: auto">
+              <div class="row">
+                <div class="col-4">
+                  <p class="mt-4 p-1">Product</p>
+                  <div><a href="" class="text-decoration-none text-secondary p-1">Premium</a></div>
+                  <div><a href="" class="text-decoration-none text-secondary p-1">What's new?</a></div>
+                  <div><a href="" class="text-decoration-none text-secondary p-1">learn</a></div>
+                  <div><a href="" type="button" class="btn border border-primary text-primary bg-light mt-2"><i
+                        class="fa-solid fa-bolt"></i>Instal</a></div>
+                </div>
+                <div class="col-4">
+                  <p class="mt-4 p-1">Term</p>
+                  <div><a href="" class="text-decoration-none  text-secondary">About us</a></div>
+                  <div><a href="" class="text-decoration-none text-secondary">support</a></div>
+                </div>
+                <div class="col-4 ">
+                  <p class="mt-4 p-1">Theme</p>
+                  <button type="button" class="btn text-secondary"><a href=""><i
+                        class="fa-solid fa-sun text-secondary pt-1 p-1"></i></a>light</button><br>
+                  <button type="button" class="btn text-secondary"><a href=""><i
+                        class="fa-solid fa-moon text-secondary  pt-1 p-1"></i></a>dark</button><br>
+                  <button type="button" class="btn text-secondary"><a href=""><i
+                        class="fa-solid fa-desktop text-secondary  pt-1 p-1"></i></a>Auto</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+  </main>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
